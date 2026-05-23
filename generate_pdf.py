@@ -5,18 +5,48 @@ from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from datetime import datetime
+import os
 
-# Register a common fallback font (DejaVu if available, else Times-Roman will be used)
-try:
-    pdfmetrics.registerFont(TTFont('DejaVuSans', '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'))
-    body_font = 'DejaVuSans'
-except Exception:
-    body_font = 'Times-Roman'
+FONT_SEARCH_PATHS = [
+    '/Library/Fonts',
+    '/System/Library/Fonts',
+    os.path.expanduser('~/Library/Fonts'),
+    os.path.join(os.getcwd(), 'assets', 'fonts'),
+]
+
+FONT_CANDIDATES = [
+    ('SF Pro Display', ['SF-Pro-Display-Regular.ttf', 'SFProDisplay-Regular.otf', 'SFProDisplay-Regular.ttf']),
+    ('SF Pro Text', ['SF-Pro-Text-Regular.ttf', 'SFProText-Regular.otf', 'SFProText-Regular.ttf']),
+    ('Inter', ['Inter-Regular.ttf', 'Inter-Regular.otf']),
+    ('DejaVuSans', ['DejaVuSans.ttf', 'DejaVuSans.otf']),
+]
+
+
+def find_font_file(names):
+    for base in FONT_SEARCH_PATHS:
+        if not os.path.isdir(base):
+            continue
+        for root, _, files in os.walk(base):
+            for candidate in names:
+                if candidate in files:
+                    return os.path.join(root, candidate)
+    return None
+
+body_font = 'Times-Roman'
+for family, names in FONT_CANDIDATES:
+    found = find_font_file(names)
+    if found:
+        try:
+            pdfmetrics.registerFont(TTFont(family, found))
+            body_font = family
+            break
+        except Exception:
+            continue
 
 doc = SimpleDocTemplate("privacy-policy.pdf", pagesize=A4, rightMargin=36,leftMargin=36,topMargin=54,bottomMargin=54)
 styles = getSampleStyleSheet()
 normal = ParagraphStyle('NormalCustom', parent=styles['Normal'], fontName=body_font, fontSize=11, leading=14, spaceAfter=8)
-title_style = ParagraphStyle('Title', parent=styles['Title'], fontName=body_font, fontSize=16, leading=20, spaceAfter=12, alignment=0)
+title_style = ParagraphStyle('Title', parent=styles['Title'], fontName=body_font, fontSize=18, leading=22, spaceAfter=14, alignment=0)
 heading = ParagraphStyle('Heading', parent=styles['Heading2'], fontName=body_font, fontSize=13, leading=16, spaceBefore=8, spaceAfter=6)
 
 flow = []

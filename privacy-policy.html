@@ -8,30 +8,47 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* Minimal, single-column layout to avoid overlapping issues */
-    *{box-sizing:border-box}
-    body{margin:0;font-family:'Inter',sans-serif;background:#080808;color:#efefef;line-height:1.6}
-    nav{position:fixed;inset:0 0 auto 0;height:72px;background:rgba(8,8,8,.95);display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid rgba(255,255,255,.06);z-index:999}
-    .logo{color:#fff;text-decoration:none;font-weight:600}
-    main{padding:110px 20px 60px;max-width:880px;margin:0 auto}
-    h1{font-size:32px;margin-bottom:6px}
-    .meta{display:flex;flex-wrap:wrap;gap:20px;color:#9a9a9a;font-size:14px;margin-bottom:22px}
-    section{margin:28px 0}
-    h2{font-size:20px;margin:12px 0}
-    p,li{color:#bdbdbd;font-size:15px}
-    ul{padding-left:20px}
-    .callout{background:#0f0f0f;border:1px solid rgba(255,255,255,.04);padding:14px;border-radius:8px;margin-top:12px}
-    footer{border-top:1px solid rgba(255,255,255,.06);padding:20px;text-align:center;color:#888}
-    a{color:#89a7df}
-    /* Table of contents (desktop only) */
-    .toc{display:none}
-    @media(min-width:1000px){
-      .toc{display:block;max-width:220px;margin:0 0 18px;padding:12px;background:#0b0b0b;border:1px solid rgba(255,255,255,.04);border-radius:8px;font-size:14px;color:#d7d7d7}
-      .toc ul{list-style:none;margin:8px 0 0;padding:0}
-      .toc li{margin:8px 0}
-      .toc a{color:#89a7df;text-decoration:none}
+    @font-face {
+      font-family: 'SF Pro Display';
+      font-style: normal;
+      font-weight: 400;
+      src: local('SF Pro Display'), local('SFProDisplay'), local('SF Pro Display Regular');
     }
-    h2,h3{scroll-margin-top:110px}
+    @font-face {
+      font-family: 'SF Pro Text';
+      font-style: normal;
+      font-weight: 400;
+      src: local('SF Pro Text'), local('SFProText'), local('SF Pro Text Regular');
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'SF Pro Text','Inter','Helvetica Neue',-apple-system,system-ui,sans-serif;background:#080808;color:#efefef;line-height:1.75}
+    nav{position:fixed;inset:0 0 auto 0;height:72px;background:rgba(8,8,8,.95);display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid rgba(255,255,255,.06);z-index:999}
+    .logo{color:#fff;text-decoration:none;font-weight:700;letter-spacing:.08em}
+    main{padding:110px 28px 60px;max-width:1180px;margin:0 auto}
+    .policy-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:32px}
+    h1{font-family:'SF Pro Display','Inter','Helvetica Neue',sans-serif;font-size:32px;font-weight:700;margin-bottom:6px;letter-spacing:-.02em}
+    .meta{display:flex;flex-wrap:wrap;gap:20px;color:#9a9a9a;font-size:14px;margin-bottom:22px}
+    section{margin:0 0 32px}
+    h2{font-family:'SF Pro Display','Inter','Helvetica Neue',sans-serif;font-size:22px;font-weight:600;margin:24px 0 12px;letter-spacing:-.02em}
+    h3{font-family:'SF Pro Display','Inter','Helvetica Neue',sans-serif;font-size:17px;font-weight:500;margin:20px 0 10px;letter-spacing:-.01em}
+    p,li{color:#d2d2d2;font-size:15px;max-width:78ch}
+    ul{padding-left:22px}
+    .callout{background:#0f0f0f;border:1px solid rgba(255,255,255,.04);padding:16px;border-radius:12px;margin-top:14px}
+    footer{border-top:1px solid rgba(255,255,255,.06);padding:24px;text-align:center;color:#888;margin-top:40px}
+    a{color:#4a6fa5}
+    a:hover{text-decoration:underline}
+    .toc{display:none}
+    .toc strong{display:block;color:#fff;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;margin-bottom:16px}
+    .toc ul{list-style:none;margin:0;padding:0}
+    .toc li{margin-bottom:12px}
+    .toc a{color:#4a6fa5;text-decoration:none}
+    .toc a:hover{text-decoration:underline}
+    @media(min-width:1000px){
+      .policy-grid{grid-template-columns:minmax(0,1fr) 260px;}
+      .toc{display:block;padding:24px;background:#0b0b0b;border:1px solid rgba(255,255,255,.04);border-radius:16px;position:sticky;top:110px;max-height:calc(100vh - 130px);overflow:auto}
+    }
+    h2,h3{scroll-margin-top:120px}
+    @media(max-width:900px){main{padding:100px 20px 50px}}
     @media(max-width:600px){main{padding:100px 16px 40px}h1{font-size:26px}}
   </style>
 </head>
@@ -44,22 +61,25 @@
   <main>
     <h1>Privacy Policy</h1>
     <div class="meta"><div>Effective date: May 22, 2026</div><div>Last updated: May 22, 2026</div><div>Contact: johnryan@ashfordintelligence.com</div></div>
-    <div class="toc" aria-label="Table of contents">
-      <strong>On this page</strong>
-      <ul>
-        <li><a href="#scope">Scope</a></li>
-        <li><a href="#what-we-collect">Information We Collect</a></li>
-        <li><a href="#ai-considerations">AI-Specific Data Practices</a></li>
-        <li><a href="#how-we-use">How We Use Information</a></li>
-        <li><a href="#third-party">Third-Party Services</a></li>
-        <li><a href="#retention">Data Retention</a></li>
-        <li><a href="#rights">Your Rights</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-    <p style="margin-top:8px"><a href="/privacy-policy.txt" target="_blank">Printable legal text (plain .txt)</a></p>
+    <div class="policy-grid">
+      <div>
+        <p style="margin-top:8px"><a href="/privacy-policy.txt" target="_blank">Printable legal text (plain .txt)</a></p>
 
-    <p>ASHFORD INTELLIGENCE ("we", "us", "our") provides AI-driven automation and consulting services. This Privacy Policy explains what personal data we collect, how we use and share it, the AI-specific considerations relevant to our services, and the rights available to you.</p>
+        <p>ASHFORD INTELLIGENCE ("we", "us", "our") provides AI-driven automation and consulting services. This Privacy Policy explains what personal data we collect, how we use and share it, the AI-specific considerations relevant to our services, and the rights available to you.</p>
+      </div>
+      <aside class="toc" aria-label="Table of contents">
+        <strong>On this page</strong>
+        <ul>
+          <li><a href="#scope">Scope</a></li>
+          <li><a href="#what-we-collect">Information We Collect</a></li>
+          <li><a href="#ai-considerations">AI-Specific Data Practices</a></li>
+          <li><a href="#how-we-use">How We Use Information</a></li>
+          <li><a href="#third-party">Third-Party Services</a></li>
+          <li><a href="#retention">Data Retention</a></li>
+          <li><a href="#rights">Your Rights</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </aside>
 
     <section id="scope">
       <h2>Scope</h2>
@@ -155,6 +175,7 @@
       <h2>Changes to this Policy</h2>
       <p>We may update this policy to reflect changes in our practices or legal requirements. When material changes occur we will post the updated policy and update the "Last updated" date. Continued use of our services after changes constitutes acceptance of the revised policy.</p>
     </section>
+    </div>
 
     <footer>
       © 2026 Ashford Intelligence — <a href="index.html">Back to Home</a>
