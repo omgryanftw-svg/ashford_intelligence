@@ -1150,6 +1150,10 @@ footer{border-top:1px solid var(--border);padding:56px 40px 36px}
       <div class="fld"><label>Biggest Challenge</label>
         <textarea name="challenge" placeholder="What's costing you the most time or money right now?" rows="3" style="resize:vertical"></textarea>
       </div>
+      <label class="optout" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--tx2);margin-top:8px">
+        <input type="checkbox" id="aiOptOutCheckbox" style="transform:scale(1.05);margin-right:6px"> Do not log or use my inputs for model training
+      </label>
+      <input type="hidden" name="ai_opt_out" value="0" id="aiOptOutHidden">
       <button type="submit" class="fsub">Book My Strategy Call →</button>
     </form>
   </div>
@@ -1157,6 +1161,42 @@ footer{border-top:1px solid var(--border);padding:56px 40px 36px}
 
 <!-- FOOTER -->
 <footer>
+<script>
+// Persist user opt-out choice and inject hidden field into all forms
+document.addEventListener('DOMContentLoaded', function(){
+  try{
+    const key = 'ai_opt_out';
+    const saved = localStorage.getItem(key) === '1';
+    const checkbox = document.getElementById('aiOptOutCheckbox');
+    const hidden = document.getElementById('aiOptOutHidden');
+    if(checkbox) checkbox.checked = saved;
+    if(hidden) hidden.value = saved ? '1' : '0';
+
+    // Ensure every form submits the opt-out flag (adds/updates hidden input)
+    function syncForms(){
+      document.querySelectorAll('form').forEach(f => {
+        let h = f.querySelector('input[name="ai_opt_out"]');
+        if(!h){
+          h = document.createElement('input');
+          h.type = 'hidden'; h.name = 'ai_opt_out'; h.value = saved ? '1' : '0';
+          f.appendChild(h);
+        } else {
+          h.value = saved ? '1' : '0';
+        }
+      });
+    }
+    syncForms();
+
+    if(checkbox){
+      checkbox.addEventListener('change', function(){
+        const val = checkbox.checked ? '1' : '0';
+        localStorage.setItem(key, val);
+        document.querySelectorAll('input[name="ai_opt_out"]').forEach(i=>i.value=val);
+      });
+    }
+  }catch(e){console.warn('opt-out script error',e)}
+});
+</script>
   <div class="ft-inner">
     <div class="ft-top">
       <div><div class="ft-logo">ASHFORD <span>INTELLIGENCE</span></div><div class="ft-tag">AI Systems for Modern Business Operations</div></div>

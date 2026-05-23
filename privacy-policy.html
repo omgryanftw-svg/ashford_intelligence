@@ -23,6 +23,15 @@
     .callout{background:#0f0f0f;border:1px solid rgba(255,255,255,.04);padding:14px;border-radius:8px;margin-top:12px}
     footer{border-top:1px solid rgba(255,255,255,.06);padding:20px;text-align:center;color:#888}
     a{color:#89a7df}
+    /* Table of contents (desktop only) */
+    .toc{display:none}
+    @media(min-width:1000px){
+      .toc{display:block;max-width:220px;margin:0 0 18px;padding:12px;background:#0b0b0b;border:1px solid rgba(255,255,255,.04);border-radius:8px;font-size:14px;color:#d7d7d7}
+      .toc ul{list-style:none;margin:8px 0 0;padding:0}
+      .toc li{margin:8px 0}
+      .toc a{color:#89a7df;text-decoration:none}
+    }
+    h2,h3{scroll-margin-top:110px}
     @media(max-width:600px){main{padding:100px 16px 40px}h1{font-size:26px}}
   </style>
 </head>
@@ -35,6 +44,19 @@
   <main>
     <h1>Privacy Policy</h1>
     <div class="meta"><div>Effective date: May 22, 2026</div><div>Last updated: May 22, 2026</div><div>Contact: johnryan@ashfordintelligence.com</div></div>
+    <div class="toc" aria-label="Table of contents">
+      <strong>On this page</strong>
+      <ul>
+        <li><a href="#scope">Scope</a></li>
+        <li><a href="#what-we-collect">Information We Collect</a></li>
+        <li><a href="#ai-considerations">AI-Specific Data Practices</a></li>
+        <li><a href="#how-we-use">How We Use Information</a></li>
+        <li><a href="#third-party">Third-Party Services</a></li>
+        <li><a href="#retention">Data Retention</a></li>
+        <li><a href="#rights">Your Rights</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
     <p style="margin-top:8px"><a href="/privacy-policy.txt" target="_blank">Printable legal text (plain .txt)</a></p>
 
     <p>ASHFORD INTELLIGENCE ("we", "us", "our") provides AI-driven automation and consulting services. This Privacy Policy explains what personal data we collect, how we use and share it, the AI-specific considerations relevant to our services, and the rights available to you.</p>
